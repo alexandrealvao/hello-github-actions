@@ -1,0 +1,30 @@
+name: azure-ci
+
+on: [push]
+
+jobs:
+  build:
+    name: Build Code
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup a .NET Core
+      uses: actions/setp-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    - name: Build with donet
+      run: dotnet build --configuration Release
+  
+  deploy:
+    needs: [build]
+    name: Deploy App
+    runs-on: [ubuntu-latest]
+    
+    steps:
+      - name: Deploy to azure web app
+        uses: azure/appservice-actions/webapp@master
+        with:
+          app-name: gl-actions-azure
+          publish-profile: ${{ secrets.azureWebAppPublishProfile}}
+    
