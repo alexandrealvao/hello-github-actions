@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Setup a .NET Core
-      uses: actions/setp-dotnet@v1
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.108
     - name: Build with donet
